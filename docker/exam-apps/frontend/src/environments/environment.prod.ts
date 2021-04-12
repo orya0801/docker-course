@@ -1,5 +1,5 @@
 export const environment = {
   production: 'true',
-  apiHost: 'mydomain',
-  apiPort: '7000'
+  apiHost: 'localhost',
+  apiPort: '3000'
 };

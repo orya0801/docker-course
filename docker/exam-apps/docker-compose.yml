@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  backend:
+    restart: always
+    image: orya0801/backend
+    build: 
+      context: backend/
+      dockerfile: Dockerfile
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      DB_HOST: mongo
+      DB_PORT: 27017
+      DB_NAME: books_db
+      DB_COLLECTION: mybooks
+    ports:
+      - 3000:3000
+    links:
+      - mongo
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+  
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      - app-network
+
+  frontend:
+    restart: always
+    image: orya0801/frontend
+    build: frontend/
+    env_file:
+      - frontend/.env
+    ports:
+      - 80:80
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    
+    
